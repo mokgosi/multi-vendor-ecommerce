@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\PermissionsEnum;
-use App\RolesEnum;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\PermissionsEnum;
+use App\Enums\RolesEnum;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -23,5 +22,9 @@ class RoleSeeder extends Seeder
         $approveVendors = Permission::create(['name' => PermissionsEnum::ApproveVendors->value]);
         $sellProducts = Permission::create(['name' => PermissionsEnum::SellProducts->value]);
         $buyProducts = Permission::create(['name' => PermissionsEnum::BuyProducts->value]);
+
+        $userRole->syncPermissions([$buyProducts]);
+        $vendorRole->syncPermissions([$sellProducts, $buyProducts]);
+        $adminRole->syncPermissions([$sellProducts, $buyProducts, $approveVendors]);
     }
 }
