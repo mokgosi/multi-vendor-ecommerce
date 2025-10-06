@@ -19,5 +19,15 @@ class DepartmentSeeder extends Seeder
             'name' => 'Department 1',
             'slug' => 'department-1',
         ]);
+
+        Department::factory()->create([
+            'name' => 'Department 2',
+            'slug' => 'department-2',
+        ]);
+
+        Department::factory()->create([
+            'name' => 'Department 3',
+            'slug' => 'department-3',
+        ]);
     }
 }

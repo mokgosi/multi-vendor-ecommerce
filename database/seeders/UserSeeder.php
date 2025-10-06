@@ -32,7 +32,5 @@ class UserSeeder extends Seeder
             'name' => 'Vendor',
             'email' => 'vendor@mail.com'
         ])->assignRole(RolesEnum::Vendor->value);
-
-
     }
 }
