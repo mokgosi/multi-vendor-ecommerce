@@ -16,6 +16,7 @@ use Filament\Forms\Set;
 use Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -175,7 +176,12 @@ class ProductResource extends Resource
                     ->label('Last Updated'),
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options(ProductStatusEnum::labels()),
+                SelectFilter::make('department')->relationship('department', 'name'),
+                SelectFilter::make('category')->relationship('category', 'name'),
+
+                
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
