@@ -22,7 +22,11 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255|unique:categories,name,' . $this->category->id,
+            'slug' => 'required|string|max:255|unique:categories,slug,' . $this->category->id,
+            'description' => 'nullable|string',
+            'thumbnail_url' => 'nullable|url',
+            'is_active' => 'boolean',
         ];
     }
 }

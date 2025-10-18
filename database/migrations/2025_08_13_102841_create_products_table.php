@@ -20,13 +20,27 @@ return new class extends Migration
             $table->longText('description');
             $table->longText('details');                      // product full details
             $table->decimal('price', 20, 2)->default(4);
+            $table->decimal('tax_rate', 5, 2)->default(0);    // tax rate percentage
+            $table->decimal('cost_price', 20, 2)->default(0); // cost to acquire or make the product
             $table->integer('inventory')->default(0);         // what we have in stock
+            $table->integer('security_stock')->default(0);    // minimum stock level before reordering
             $table->integer('discount_percent')->nullable();
-            $table->boolean('featured')->default(false);      // show as featured product
-            $table->boolean('reviewable')->default(true);     // customers can review product
-            $table->string('status')->default('Active');      // active, inactive, draft, archived
-            $table->foreignIdFor(User::class, 'created_by');  // who created this product
-            $table->foreignIdFor(User::class, 'updated_by');  // who updated this product
+
+            $table->boolean('is_featured')->default(false);      // show as featured product
+            $table->boolean('is_reviewable')->default(true);     // customers can review product
+            $table->boolean('is_returnable')->default(true);  // is product returnable
+            $table->boolean('is_digital')->default(false);    // is product a digital good
+            $table->boolean('is_taxable')->default(true);     // is product taxable
+            $table->boolean('is_shippable')->default(true);   // does product require shipping
+            $table->boolean('is_active')->default(true);      // is product active
+
+            $table->string('status')->default('available');   // available, out_of_stock, discontinued, coming_soon
+            $table->string('sku')->unique()->nullable();                  // stock keeping unit
+            $table->string('barcode')->unique()->nullable();              // barcode number
+            $table->decimal('weight', 8, 2)->default(0);      // weight in kg
+            $table->foreignIdFor(User::class, 'created_by')->nullable();  // who created this product
+            $table->foreignIdFor(User::class, 'updated_by')->nullable();  // who updated this product
+            $table->foreignId('brand_id')->index()->nullable()->constrained();
             $table->foreignId('department_id')->index()->constrained();
             $table->foreignId('category_id')->index()->constrained();
             $table->timestamps();

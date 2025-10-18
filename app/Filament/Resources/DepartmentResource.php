@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -32,7 +33,9 @@ class DepartmentResource extends Resource
                     ->required()
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                 TextInput::make('slug')->required(),
-                Checkbox::make('active')->required(),
+                TextInput::make('meta_title')->nullable()->maxLength(255),
+                TextInput::make('meta_description')->nullable()->maxLength(2048),
+                Checkbox::make('is_active')->required(),
             ]);
     }
 
@@ -40,13 +43,17 @@ class DepartmentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

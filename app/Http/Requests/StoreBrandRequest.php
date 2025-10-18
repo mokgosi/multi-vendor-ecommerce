@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class StoreBrandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,11 +22,11 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:categories,name',
-            'slug' => 'required|string|max:255|unique:categories,slug',
-            'description' => 'nullable|string',
-            'thumbnail_url' => 'nullable|url',
-            'is_active' => 'boolean',
+            'name' => 'required|string|max:255|unique:brands,name',
+            'slug' => 'required|string|max:255|unique:brands,slug',
+            'is_visible' => 'required|boolean',
+            'logo_url' => 'nullable|url|max:512',
+            'website' => 'nullable|url|max:512',
         ];
     }
 }

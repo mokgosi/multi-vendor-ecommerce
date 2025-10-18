@@ -17,13 +17,8 @@ return new class extends Migration
             $table->string("slug")->nullable()->unique();
             $table->text('description')->nullable();
             $table->boolean("is_active")->default(true);
-            $table->foreignId("department_id")
-                ->index()
-                ->constrained();
-            $table->foreignId("parent_id")
-                ->nullable()
-                ->index()
-                ->constrained('categories');
+            $table->foreignId("department_id")->index()->constrained();
+            $table->foreignId("parent_id")->nullable()->index()->constrained('categories');
             $table->timestamps();
         });
     }

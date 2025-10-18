@@ -21,7 +21,7 @@ class DepartmentFactory extends Factory
 
         return [
             'name' => $name,
-            'slug' => Str::slug($name),
+            'slug' => Str::slug($name,'-'),
             'meta_title' => fake()->words(3, true),
             'meta_description' => fake()->words(6, true),
             'created_at' => now(),
