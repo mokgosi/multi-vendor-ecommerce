@@ -57,6 +57,8 @@ class AdminPanelProvider extends PanelProvider
                     RolesEnum::Admin->value,
                     RolesEnum::Vendor->value),
             ])
+            // ->resourceCreatePageRedirect('index') // global redirect for create pages
+            // ->resourceEditPageRedirect('index')  // global redirect for edit pages
             ->authMiddleware([
                 Authenticate::class,
             ]);

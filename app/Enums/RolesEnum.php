@@ -19,4 +19,14 @@ enum RolesEnum: string
         };
     }
 
+    public function color(): string
+    {
+        return match ($this) {
+            self::Admin => 'red',
+            self::Vendor => 'blue',
+            self::Customer => 'green',
+            self::User => 'gray',
+        };          
+    }
+
 }

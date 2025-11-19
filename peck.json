@@ -1,0 +1,27 @@
+{
+    "preset": "laravel",
+    "ignore": {
+        "words": [
+            "php",
+            "Peck",
+            "Peck's",
+            "peck",
+            "peck's",
+            "Laravel",
+            "Eloquent",
+            "middleware",
+            "namespace",
+            "namespaces",
+            "ORM",
+            "ORMs",
+            "Seeder"
+        ],
+        "paths": [
+            "app/**",
+            "database/**",
+            "resources/**",
+            "routes/**",
+            "tests/**"
+        ]
+    }
+}

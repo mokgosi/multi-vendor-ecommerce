@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Enums\ProductStatusEnum;
 use App\Enums\RolesEnum;
 use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Resources\ProductResource\Pages\EditProduct;
+use App\Filament\Resources\ProductResource\Pages\ProductImage;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Facades\Filament;
@@ -13,6 +15,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Pages\Page;
+use Filament\Pages\SubNavigationPosition;
 use Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,6 +31,8 @@ class ProductResource extends Resource
     protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
 
     public static function form(Form $form): Form
     {
@@ -59,6 +65,7 @@ class ProductResource extends Resource
                             ->required()
                             ->options(ProductStatusEnum::labels())
                             ->default(ProductStatusEnum::Available->value),
+
                         Select::make('department_id')
                             ->relationship('department', 'name')
                             ->label('Department')
@@ -67,6 +74,7 @@ class ProductResource extends Resource
                             ->reactive() //Make the field reactive to update category options based on department
                             ->required()
                             ->afterStateUpdated(fn (Set $set) => $set('category_id', null)), //Reset category when department changes
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
                         Select::make('category_id')
                             ->required()
                             ->relationship(
@@ -96,22 +104,7 @@ class ProductResource extends Resource
                     ->required()
                     ->maxLength(65535)
                     ->columnSpan('2')
-                    ->toolbarButtons([
-                        'bold',
-                        'italic',
-                        'underline',
-                        'strike',
-                        'bulletList',
-                        'orderedList',
-                        'link',
-                        'codeBlock',
-                        'blockquote',
-                        'redo',
-                        'undo',
-                        'h2',
-                        'h3',
-                        'table'
-                    ]),
+                    ->toolbarButtons([ 'bold', 'italic', 'underline', 'strike', 'bulletList', 'orderedList', 'link', 'codeBlock', 'blockquote', 'redo', 'undo', 'h2', 'h3', 'table']),
 
                 Forms\Components\Toggle::make('is_active')->required()->default(true),
                 Forms\Components\Toggle::make('is_returnable')->default(true),
@@ -125,23 +118,7 @@ class ProductResource extends Resource
                     ->nullable()
                     ->maxLength(65535)
                     ->columnSpan('2')
-                    ->toolbarButtons([
-                        'bold',
-                        'italic',
-                        'underline',
-                        'strike',
-                        'bulletList',
-                        'orderedList',
-                        'link',
-                        'codeBlock',
-                        'blockquote',
-                        'redo',
-                        'undo',
-                        'h2',
-                        'h3',
-                        'table'
-                    ]),
-                
+                   ->toolbarButtons([ 'bold', 'italic', 'underline', 'strike', 'bulletList', 'orderedList', 'link', 'codeBlock', 'blockquote', 'redo', 'undo', 'h2', 'h3', 'table']),
             ]);
     }
 
@@ -214,5 +191,21 @@ class ProductResource extends Resource
     {
         $user = Filament::auth()->user();
         return $user && $user->hasRole(RolesEnum::Vendor);
+    }
+
+    //extra function to add sub navigation for product pages - 02:30
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return 
+            $page->generateNavigationItems([
+                EditProduct::class,
+                ProductImage::class,
+                // ProductReviews::class,
+                // ProductVariants::class,
+                // ProductAttributes::class,
+                // ProductTags::class,
+                // ProductOrders::class,
+            ]);
+        
     }
 }
