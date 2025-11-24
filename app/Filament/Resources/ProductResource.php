@@ -6,7 +6,7 @@ use App\Enums\ProductStatusEnum;
 use App\Enums\RolesEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\Pages\EditProduct;
-use App\Filament\Resources\ProductResource\Pages\ProductImage;
+use App\Filament\Resources\ProductResource\Pages\ProductImages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Facades\Filament;
@@ -199,7 +199,7 @@ class ProductResource extends Resource
         return 
             $page->generateNavigationItems([
                 EditProduct::class,
-                ProductImage::class,
+                ProductImages::class,
                 // ProductReviews::class,
                 // ProductVariants::class,
                 // ProductAttributes::class,

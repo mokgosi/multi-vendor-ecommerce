@@ -24,10 +24,10 @@ class UpdateBrandRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:brands,name,' . $this->brand->id,
             'slug' => 'required|string|max:255|unique:brands,slug,' . $this->brand->id,
-            'description' => 'nullable|string',
-            'logo_url' => 'nullable|url',
-            'website_url' => 'nullable|url',
-            'is_active' => 'boolean',
+            'description' => ['nullable', 'string'],
+            'logo_url' => ['nullable', 'url'],
+            'website_url' => ['nullable', 'url'],
+            'is_active' => ['boolean'],
         ];
     }
 }

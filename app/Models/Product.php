@@ -67,7 +67,7 @@ class Product extends Model implements HasMedia
     }
 
     #[Scope]
-    public function active($query)
+    protected function active($query)
     {
         return $query->where('is_active', true);
     }

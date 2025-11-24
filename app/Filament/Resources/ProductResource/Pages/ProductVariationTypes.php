@@ -30,10 +30,28 @@ class ProductVariationTypes extends EditRecord
                     ->columnSpan(2)
                     ->schema([
                         TextInput::make('name')
-                            ->required()
-                            ->label('Variation Type Name'),
+                            ->required(),
                         Select::make('type')
                             ->options(ProductVariationTypeEnum::labels())
+                            ->required(),
+                        Repeater::make('options')
+                            ->relationship()
+                            ->collapsible()
+                            ->schema([
+                                TextInput::make('name')
+                                    ->required()
+                                    ->columnSpan(2),
+                                SpatieMediaLibraryFileUpload::make('images')
+                                    ->image()
+                                    ->multiple()
+                                    ->openable()
+                                    ->reorderable() 
+                                    ->appendFiles()
+                                    ->collection('images')
+                                    ->deletable()
+                                    ->preserveFilenames(),
+                            ])
+                            ->columnSpan(2)
                        
                     ])
             ]);

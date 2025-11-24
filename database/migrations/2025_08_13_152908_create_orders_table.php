@@ -19,7 +19,7 @@ return new class extends Migration
             $table->double('subtotal')->default(0.00);
             $table->double('shipping')->default(0.00);
             $table->double('tax')->default(0.00);
-            $table->double('total')->default(0.00);
+            $table->double('total_amount')->default(0.00);
             $table->string('currency')->default('ZAR');
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();

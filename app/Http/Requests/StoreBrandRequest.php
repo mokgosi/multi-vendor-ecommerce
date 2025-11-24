@@ -22,11 +22,11 @@ class StoreBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:brands,name',
-            'slug' => 'required|string|max:255|unique:brands,slug',
-            'is_visible' => 'required|boolean',
-            'logo_url' => 'nullable|url|max:512',
-            'website' => 'nullable|url|max:512',
+            'name' => ['required', 'string', 'max:255', 'unique:brands,name'],
+            'slug' => ['required', 'string', 'max:255', 'unique:brands,slug'],
+            'is_visible' => ['required', 'boolean'],
+            'logo_url' => ['nullable', 'url', 'max:512'],
+            'website' => ['nullable', 'url', 'max:512'],
         ];
     }
 }
