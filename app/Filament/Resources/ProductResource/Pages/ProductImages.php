@@ -32,6 +32,7 @@ class ProductImages extends EditRecord
 
             ]);
     }
+    
     protected function getHeaderActions(): array
     {
         return [
